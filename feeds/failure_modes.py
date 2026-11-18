@@ -1,7 +1,7 @@
-import numpy as np
-import pandas as pd
+import numpy as np # to perform numerical operations on arrays and numerical data
+import pandas as pd # for using DataFrames and handling tabular data
 
-from feeds import locations
+from feeds import locations # to assign warehouse and bin locations based on stock codes
 
 # internal bookkeeping column: marks rows already claimed by an earlier failure
 # mode this run, so later modes sample only from untouched rows. Dropped before
@@ -9,6 +9,8 @@ from feeds import locations
 _TOUCHED_COL = "_touched"
 
 
+# checks for row_id added in previous steps and ensures the bookkeeping column exists
+# adds row_id if missing and initializes the _touched bookkeeping column if not present
 def _ensure_bookkeeping(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     if "row_id" not in df.columns:
@@ -20,25 +22,27 @@ def _ensure_bookkeeping(df: pd.DataFrame) -> pd.DataFrame:
 
 def _empty_log() -> pd.DataFrame:
     return pd.DataFrame(columns=["row_id", "failure_mode", "field_changed", "old_value", "new_value"])
+# returns an empty log DataFrame if no rows are sampled for a failure mode
 
 
+# logging unit failures , picked 6 peices but logged 1 as a case pack
 def apply_unit_of_measure_divergence(
     df: pd.DataFrame, rng: np.random.Generator, rate: float = 0.01
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    df = _ensure_bookkeeping(df)
-    eligible = df.index[(df["event_type"] == "sale") & (~df[_TOUCHED_COL])]
-    n = round(rate * len(eligible))
+    df = _ensure_bookkeeping(df) # ensure row_id and _touched bookkeeping column exist
+    eligible = df.index[(df["event_type"] == "sale") & (~df[_TOUCHED_COL])] # select rows eligible for unit_of_measure_divergence failure mode
+    n = round(rate * len(eligible)) # calculate the number of rows to sample for this failure mode
     if n == 0:
-        return df, _empty_log()
+        return df, _empty_log() # return early if no rows are sampled for this failure mode
 
-    sampled_idx = rng.choice(eligible.to_numpy(), size=n, replace=False)
-    case_pack = rng.choice([6, 12], size=n)
-    old_values = df.loc[sampled_idx, "units"].to_numpy()
-    new_values = old_values * case_pack
+    sampled_idx = rng.choice(eligible.to_numpy(), size=n, replace=False) # calculate the indices of rows to sample for this failure mode
+    case_pack = rng.choice([6, 12], size=n) # randomly choose a case pack multiplier for each sampled row 6 or 12
+    old_values = df.loc[sampled_idx, "units"].to_numpy() # get the old units values for the sampled rows
+    new_values = old_values * case_pack # calculate the new units values by multiplying with the case pack
 
     log = pd.DataFrame(
         {
-            "row_id": df.loc[sampled_idx, "row_id"].to_numpy(),
+            "row_id": df.loc[sampled_idx, "row_id"].to_numpy(), # get the row IDs for the sampled rows
             "failure_mode": "unit_of_measure_divergence",
             "field_changed": "units",
             "old_value": old_values,
@@ -50,6 +54,7 @@ def apply_unit_of_measure_divergence(
     return df, log
 
 
+# delay in recording an entry for the event_date, simulating posting lag
 def apply_posting_lag(
     df: pd.DataFrame, rng: np.random.Generator, rate: float = 0.02
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -62,7 +67,7 @@ def apply_posting_lag(
     sampled_idx = rng.choice(eligible.to_numpy(), size=n, replace=False)
     shift_days = rng.integers(1, 6, size=n)  # 1-5 inclusive
     old_values = df.loc[sampled_idx, "event_date"].to_numpy()
-    new_values = df.loc[sampled_idx, "event_date"] + pd.to_timedelta(shift_days, unit="D")
+    new_values = df.loc[sampled_idx, "event_date"] + pd.to_timedelta(shift_days, unit="D") # converts random integers to timedelta and adds to event_date
 
     log = pd.DataFrame(
         {
@@ -78,6 +83,7 @@ def apply_posting_lag(
     return df, log
 
 
+# simulate a dropped return when putaway is done but not logged
 def apply_dropped_return(
     df: pd.DataFrame, rng: np.random.Generator, rate: float = 0.05
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -98,10 +104,10 @@ def apply_dropped_return(
             "new_value": "dropped",
         }
     )
-    df = df.drop(index=sampled_idx)
+    df = df.drop(index=sampled_idx) # drop the sampled rows to simulate a dropped return
     return df, log
 
-
+# attach a set sampled rows as duplicates to simulate duplicate movements at the end of the main dataframe and mark them as touched
 def apply_duplicate_movement(
     df: pd.DataFrame, rng: np.random.Generator, rate: float = 0.005
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -114,9 +120,7 @@ def apply_duplicate_movement(
     sampled_idx = rng.choice(eligible.to_numpy(), size=n, replace=False)
     duplicates = df.loc[sampled_idx].copy()
     next_row_id = df["row_id"].max() + 1
-    next_wms_event_id = df["wms_event_id"].max() + 1
     duplicates["row_id"] = np.arange(next_row_id, next_row_id + n)
-    duplicates["wms_event_id"] = np.arange(next_wms_event_id, next_wms_event_id + n)
     duplicates[_TOUCHED_COL] = True
 
     log = pd.DataFrame(
@@ -132,7 +136,7 @@ def apply_duplicate_movement(
     df = pd.concat([df, duplicates], ignore_index=True)
     return df, log
 
-
+# changing the case of SKU values to simulate case variants ( upper case or lower case)
 def apply_sku_case_variant(
     df: pd.DataFrame, rng: np.random.Generator, rate: float = 0.01
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -168,7 +172,7 @@ def apply_sku_case_variant(
     df.loc[sampled_idx, _TOUCHED_COL] = True
     return df, log
 
-
+# inject manual edits into the feed by adding new rows with random SKUs, warehouse/bin locations, units, and event dates
 def apply_manual_edit_injection(
     df: pd.DataFrame, rng: np.random.Generator, n: int = 50
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -181,10 +185,12 @@ def apply_manual_edit_injection(
     bin_location = locations.assign_bin(sampled_skus, warehouse_code)
     units = rng.integers(1, 6, size=n)  # 1-5 inclusive
 
-    date_min, date_max = df["event_date"].min(), df["event_date"].max()
-    span_seconds = (date_max - date_min).total_seconds()
-    random_offsets = pd.to_timedelta(rng.random(n) * span_seconds, unit="s")
-    event_date = date_min + random_offsets
+    date_min, date_max = df["event_date"].min(), df["event_date"].max() # determine the date range for generating random event dates 
+    span_seconds = (date_max - date_min).total_seconds() # calculate the total number of seconds in the date range
+    random_offsets = pd.to_timedelta(rng.random(n) * span_seconds, unit="s") # generate random time offsets within the date range 0.1 to 1.0 of the total span
+    # floor to whole seconds: float math above leaves nanosecond-level jitter that doesn't
+    # match the rest of the dataset's precision and breaks downstream timestamp casts
+    event_date = (date_min + random_offsets).floor("s")
 
     next_row_id = df["row_id"].max() + 1
     new_row_ids = np.arange(next_row_id, next_row_id + n)
@@ -192,7 +198,6 @@ def apply_manual_edit_injection(
     new_rows = pd.DataFrame(
         {
             "row_id": new_row_ids,
-            "wms_event_id": new_row_ids,
             "sku": sampled_skus.to_numpy(),
             "warehouse_code": warehouse_code.to_numpy(),
             "bin_location": bin_location.to_numpy(),
@@ -242,3 +247,5 @@ def apply_all_failure_modes(df: pd.DataFrame, seed: int = 42) -> tuple[pd.DataFr
         ground_truth[col] = ground_truth[col].where(ground_truth[col].isna(), ground_truth[col].astype(str))
     df = df.drop(columns=[_TOUCHED_COL])
     return df, ground_truth
+
+

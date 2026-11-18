@@ -69,6 +69,38 @@ langgraph 1.2.x, langchain 1.5.x, fastapi 0.163.x, pydantic 2.14.x.
 - gen_ai.prompt / gen_ai.completion -> REMOVED. Content capture is opt-in via
   gen_ai.input.messages / gen_ai.output.messages, off by default (prompts carry PII).
 
+## Project structure
+
+Flat, no `src/` layout, each pipeline stage as its own top-level namespace-package
+folder (no `__init__.py`, run with `uv run python -m <folder>.<script>`):
+
+```
+build_movement_ledger step:
+  data_preprocessing/build_movement_ledger.py
+
+feed generation step:
+  feeds/
+    locations.py        deterministic warehouse/bin assignment
+    failure_modes.py     six WMS corruption functions + orchestrator
+    build_erp_feed.py
+    build_wms_feed.py
+
+data/
+  raw/online_retail_II.xlsx            source dataset, not generated
+  processed/
+    movement_ledger.parquet            canonical ledger, stays flat here
+    feeds/
+      erp_feed.parquet
+      wms_feed.parquet
+    evaluation/
+      exclusions_report.csv
+      drift_ground_truth.parquet
+```
+
+Run order: `data_preprocessing.build_movement_ledger` ->
+`feeds.build_erp_feed` and `feeds.build_wms_feed` (either order, both only
+depend on the ledger).
+
 ## Initial scaffold (run once)
 
 Set up the project exactly as follows, and show me the plan before running anything:

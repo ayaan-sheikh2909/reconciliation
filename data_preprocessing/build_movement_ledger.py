@@ -6,7 +6,7 @@ import pandas as pd
 
 RAW_PATH = Path("data/raw/online_retail_II.xlsx")
 LEDGER_PATH = Path("data/processed/movement_ledger.parquet")
-EXCLUSIONS_PATH = Path("data/processed/exclusions_report.csv")
+EXCLUSIONS_PATH = Path("data/processed/evaluation/exclusions_report.csv")
 # Define paths for raw input, processed ledger, and exclusions report using the pathlib library
 
 SHEETS = ["Year 2009-2010", "Year 2010-2011"]
@@ -63,7 +63,7 @@ def main():
 
     stock_code_str = df["stock_code"].astype(str) # convert stock_code column to string for consistent comparison
     is_excluded = stock_code_str.isin(EXACT_EXCLUDED_CODES) | stock_code_str.str.startswith(GIFT_PREFIX) # comparison logic for excl
-    
+
     exclusions = (
         df.loc[is_excluded, "stock_code"] # get the stock codes that are excluded, along with indexes from the original dataframe
         .astype(str) # ensure the excluded stock codes and other values are treated as strings

@@ -2715,6 +2715,7 @@ dependencies = [
     { name = "pyarrow" },
     { name = "pydantic" },
     { name = "python-dotenv" },
+    { name = "tabulate" },
 ]
 
 [package.metadata]
@@ -2737,6 +2738,7 @@ requires-dist = [
     { name = "pyarrow", specifier = ">=26.0.1" },
     { name = "pydantic", specifier = ">=2.14,<2.15" },
     { name = "python-dotenv", specifier = ">=1.2.4" },
+    { name = "tabulate", specifier = ">=0.10.0" },
 ]
 
 [[package]]

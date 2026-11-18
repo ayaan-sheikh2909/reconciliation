@@ -1,39 +1,42 @@
-from pathlib import Path
+from pathlib import Path # for handling file paths and loading parquet files
 
-import numpy as np
-import pandas as pd
+import numpy as np # for numerical operations
+import pandas as pd # for using DataFrames and reading/writing parquet files
 
-from feeds import failure_modes, locations
+from feeds import failure_modes, locations # for applying failure modes and assigning warehouse/bin locations
 
 LEDGER_PATH = Path("data/processed/movement_ledger.parquet")
-WMS_FEED_PATH = Path("data/processed/wms_feed.parquet")
-GROUND_TRUTH_PATH = Path("data/processed/drift_ground_truth.parquet")
+WMS_FEED_PATH = Path("data/processed/feeds/wms_feed.parquet")
+GROUND_TRUTH_PATH = Path("data/processed/evaluation/drift_ground_truth.parquet")
 
+# Define column renaming and columns to drop for the WMS feed as done with ERP feed , more stock movement based
 COLUMN_RENAME = {
     "stock_code": "sku",
+    "description": "item_desc",
     "movement_type": "event_type",
     "movement_qty": "units",
     "invoice_date": "event_date",
 }
-DROP_COLUMNS = ["description", "price", "customer_id", "country", "source_sheet", "quantity", "invoice"]
+DROP_COLUMNS = ["price", "customer_id", "country", "source_sheet", "quantity", "invoice"]
 
 
 def main():
-    df = pd.read_parquet(LEDGER_PATH)
+    df = pd.read_parquet(LEDGER_PATH) # load the movement ledger parquet file into a DataFrame
 
-    warehouse_code = locations.assign_warehouse(df["stock_code"])
-    bin_location = locations.assign_bin(df["stock_code"], warehouse_code)
-    df["warehouse_code"] = warehouse_code
-    df["bin_location"] = bin_location
+    warehouse_code = locations.assign_warehouse(df["stock_code"]) # assign warehouse codes based on stock codes
+    bin_location = locations.assign_bin(df["stock_code"], warehouse_code) # assign bin locations based on stock codes and warehouse codes
+    df["warehouse_code"] = warehouse_code # add warehouse codes to the DataFrame
+    df["bin_location"] = bin_location # add bin locations to the DataFrame
+    
 
-    df["row_id"] = np.arange(len(df))
-    df["wms_event_id"] = df["row_id"]
+    df["row_id"] = np.arange(len(df)) # when failures modes will be applied the index of each row will be tracked using this row_id
 
-    df = df.drop(columns=DROP_COLUMNS).rename(columns=COLUMN_RENAME)
 
-    total_before = len(df)
-    corrupted_df, ground_truth_df = failure_modes.apply_all_failure_modes(df, seed=42)
-    total_after = len(corrupted_df)
+    df = df.drop(columns=DROP_COLUMNS).rename(columns=COLUMN_RENAME) # drop unnecessary columns and rename columns for WMS feed
+
+    total_before = len(df) # store the total number of rows before applying failure modes
+    corrupted_df, ground_truth_df = failure_modes.apply_all_failure_modes(df, seed=42) # apply all defined failure modes to the DataFrame
+    total_after = len(corrupted_df) # store the total number of rows after applying failure modes
 
     WMS_FEED_PATH.parent.mkdir(parents=True, exist_ok=True)
     corrupted_df.to_parquet(WMS_FEED_PATH, index=False)
