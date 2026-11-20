@@ -1,0 +1,398 @@
+[0m12:44:13.403084 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107b67350>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107d52fc0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107d51df0>]}
+
+
+============================== 12:44:13.421046 | 23ab53ad-483a-40d1-9782-6b8c20f9cf63 ==============================
+[0m12:44:13.421046 [info ] [MainThread]: Running with dbt=1.12.7
+[0m12:44:13.421342 [debug] [MainThread]: running dbt with arguments {'log_path': '/Users/ayaansheikh/Desktop/reconciliation/transform/logs', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'warn_error': 'None', 'printer_width': '80', 'maximum_seed_size_mib': '1', 'hints_enabled': 'True', 'invocation_command': 'dbt run --profiles-dir .', 'debug': 'False', 'target_path': 'None', 'indirect_selection': 'eager', 'write_json': 'True', 'log_format': 'default', 'static_parser': 'True', 'quiet': 'False', 'profiles_dir': '.', 'use_experimental_parser': 'False', 'empty': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'introspect': 'True', 'version_check': 'True', 'send_anonymous_usage_stats': 'True', 'cache_selected_only': 'False', 'no_print': 'None', 'use_colors': 'True', 'log_cache_events': 'False'}
+[0m12:44:13.555039 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107d8e6f0>]}
+[0m12:44:13.584436 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107b673b0>]}
+[0m12:44:13.586151 [info ] [MainThread]: Registered adapter: duckdb=1.11.1
+[0m12:44:13.635680 [debug] [MainThread]: checksum: df67242802715e77568f3812802927afd4639c04476896c3b6a10b24b75bebf5, vars: {}, profile: reconciliation, target: dev, version: 1.12.7
+[0m12:44:13.636040 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m12:44:13.636198 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107fa7f20>]}
+[0m12:44:14.167000 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087311c0>]}
+[0m12:44:14.202130 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/ayaansheikh/Desktop/reconciliation/transform/target/manifest.json
+[0m12:44:14.203456 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/ayaansheikh/Desktop/reconciliation/transform/target/semantic_manifest.json
+[0m12:44:14.220505 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/ayaansheikh/Desktop/reconciliation/transform/target/osi_document.json
+[0m12:44:14.237610 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108842ff0>]}
+[0m12:44:14.237835 [info ] [MainThread]: Found 3 models, 2 sources, 513 macros
+[0m12:44:14.237978 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087f2810>]}
+[0m12:44:14.238647 [info ] [MainThread]: 
+[0m12:44:14.238781 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m12:44:14.238890 [info ] [MainThread]: 
+[0m12:44:14.239078 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m12:44:14.240942 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_reconciliation'
+[0m12:44:14.244923 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_reconciliation'
+[0m12:44:14.289355 [debug] [ThreadPool]: Using duckdb connection "list_reconciliation"
+[0m12:44:14.289558 [debug] [ThreadPool]: Using duckdb connection "list_reconciliation"
+[0m12:44:14.289710 [debug] [ThreadPool]: On list_reconciliation: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "list_reconciliation"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"reconciliation"'
+    
+  
+  
+[0m12:44:14.289852 [debug] [ThreadPool]: On list_reconciliation: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "list_reconciliation"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"reconciliation"'
+    
+  
+  
+[0m12:44:14.289982 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m12:44:14.290098 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m12:44:14.298826 [debug] [ThreadPool]: SQL status: OK in 0.009 seconds
+[0m12:44:14.299018 [debug] [ThreadPool]: SQL status: OK in 0.009 seconds
+[0m12:44:14.299545 [debug] [ThreadPool]: On list_reconciliation: Close
+[0m12:44:14.300031 [debug] [ThreadPool]: On list_reconciliation: Close
+[0m12:44:14.300408 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_reconciliation, now create_reconciliation_gold)
+[0m12:44:14.300570 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_reconciliation, now create_reconciliation_silver)
+[0m12:44:14.300762 [debug] [ThreadPool]: Creating schema "database: "reconciliation"
+schema: "gold"
+"
+[0m12:44:14.300928 [debug] [ThreadPool]: Creating schema "database: "reconciliation"
+schema: "silver"
+"
+[0m12:44:14.304364 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_gold"
+[0m12:44:14.304780 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_silver"
+[0m12:44:14.304913 [debug] [ThreadPool]: On create_reconciliation_gold: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "create_reconciliation_gold"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='reconciliation'
+        and type != 'duckdb'
+    
+  
+[0m12:44:14.305051 [debug] [ThreadPool]: On create_reconciliation_silver: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "create_reconciliation_silver"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='reconciliation'
+        and type != 'duckdb'
+    
+  
+[0m12:44:14.305184 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:44:14.306404 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:44:14.309596 [debug] [ThreadPool]: SQL status: OK in 0.004 seconds
+[0m12:44:14.309736 [debug] [ThreadPool]: SQL status: OK in 0.003 seconds
+[0m12:44:14.311692 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_gold"
+[0m12:44:14.312165 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_silver"
+[0m12:44:14.312289 [debug] [ThreadPool]: On create_reconciliation_gold: BEGIN
+[0m12:44:14.312416 [debug] [ThreadPool]: On create_reconciliation_silver: BEGIN
+[0m12:44:14.312625 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m12:44:14.312762 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_gold"
+[0m12:44:14.312882 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m12:44:14.313001 [debug] [ThreadPool]: On create_reconciliation_gold: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "create_reconciliation_gold"} */
+
+    
+    
+        create schema if not exists "reconciliation"."gold"
+    
+[0m12:44:14.313128 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_silver"
+[0m12:44:14.313288 [debug] [ThreadPool]: On create_reconciliation_silver: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "create_reconciliation_silver"} */
+
+    
+    
+        create schema if not exists "reconciliation"."silver"
+    
+[0m12:44:14.313428 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m12:44:14.313786 [debug] [ThreadPool]: On create_reconciliation_gold: COMMIT
+[0m12:44:14.313914 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m12:44:14.314028 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_gold"
+[0m12:44:14.314741 [debug] [ThreadPool]: On create_reconciliation_silver: COMMIT
+[0m12:44:14.314900 [debug] [ThreadPool]: On create_reconciliation_gold: COMMIT
+[0m12:44:14.315021 [debug] [ThreadPool]: Using duckdb connection "create_reconciliation_silver"
+[0m12:44:14.315172 [debug] [ThreadPool]: On create_reconciliation_silver: COMMIT
+[0m12:44:14.318569 [debug] [ThreadPool]: SQL status: OK in 0.003 seconds
+[0m12:44:14.318689 [debug] [ThreadPool]: SQL status: OK in 0.003 seconds
+[0m12:44:14.318810 [debug] [ThreadPool]: On create_reconciliation_gold: Close
+[0m12:44:14.318926 [debug] [ThreadPool]: On create_reconciliation_silver: Close
+[0m12:44:14.319492 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_reconciliation_silver, now list_reconciliation_gold)
+[0m12:44:14.319692 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_reconciliation_gold, now list_reconciliation_silver)
+[0m12:44:14.321498 [debug] [ThreadPool]: Using duckdb connection "list_reconciliation_gold"
+[0m12:44:14.321854 [debug] [ThreadPool]: Using duckdb connection "list_reconciliation_silver"
+[0m12:44:14.321975 [debug] [ThreadPool]: On list_reconciliation_gold: BEGIN
+[0m12:44:14.322090 [debug] [ThreadPool]: On list_reconciliation_silver: BEGIN
+[0m12:44:14.322201 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:44:14.322317 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:44:14.322544 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m12:44:14.322667 [debug] [ThreadPool]: Using duckdb connection "list_reconciliation_gold"
+[0m12:44:14.322781 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m12:44:14.322913 [debug] [ThreadPool]: On list_reconciliation_gold: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "list_reconciliation_gold"} */
+select
+      'reconciliation' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'gold'
+    and lower(table_catalog) = 'reconciliation'
+  
+[0m12:44:14.323039 [debug] [ThreadPool]: Using duckdb connection "list_reconciliation_silver"
+[0m12:44:14.323218 [debug] [ThreadPool]: On list_reconciliation_silver: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "connection_name": "list_reconciliation_silver"} */
+select
+      'reconciliation' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'silver'
+    and lower(table_catalog) = 'reconciliation'
+  
+[0m12:44:14.324829 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m12:44:14.324956 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m12:44:14.325453 [debug] [ThreadPool]: On list_reconciliation_silver: ROLLBACK
+[0m12:44:14.325872 [debug] [ThreadPool]: On list_reconciliation_gold: ROLLBACK
+[0m12:44:14.326039 [debug] [ThreadPool]: On list_reconciliation_silver: Close
+[0m12:44:14.326259 [debug] [ThreadPool]: On list_reconciliation_gold: Close
+[0m12:44:14.326487 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10849ea20>]}
+[0m12:44:14.326670 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:44:14.326779 [debug] [MainThread]: On master: BEGIN
+[0m12:44:14.326884 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m12:44:14.327325 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m12:44:14.327459 [debug] [MainThread]: On master: COMMIT
+[0m12:44:14.327582 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:44:14.327687 [debug] [MainThread]: On master: COMMIT
+[0m12:44:14.327842 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m12:44:14.327953 [debug] [MainThread]: On master: Close
+[0m12:44:14.332326 [debug] [Thread-1 (]: Began running node model.reconciliation.stg_erp_movements
+[0m12:44:14.332512 [debug] [Thread-2 (]: Began running node model.reconciliation.stg_wms_movements
+[0m12:44:14.332734 [info ] [Thread-1 (]: 1 of 3 START sql view model silver.stg_erp_movements ........................... [RUN]
+[0m12:44:14.332948 [info ] [Thread-2 (]: 2 of 3 START sql view model silver.stg_wms_movements ........................... [RUN]
+[0m12:44:14.333149 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_reconciliation_gold, now model.reconciliation.stg_erp_movements)
+[0m12:44:14.333321 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_reconciliation_silver, now model.reconciliation.stg_wms_movements)
+[0m12:44:14.333473 [debug] [Thread-1 (]: Began compiling node model.reconciliation.stg_erp_movements
+[0m12:44:14.333618 [debug] [Thread-2 (]: Began compiling node model.reconciliation.stg_wms_movements
+[0m12:44:14.336290 [debug] [Thread-1 (]: Writing injected SQL for node "model.reconciliation.stg_erp_movements"
+[0m12:44:14.336931 [debug] [Thread-2 (]: Writing injected SQL for node "model.reconciliation.stg_wms_movements"
+[0m12:44:14.337452 [debug] [Thread-1 (]: Began executing node model.reconciliation.stg_erp_movements
+[0m12:44:14.342837 [debug] [Thread-2 (]: Began executing node model.reconciliation.stg_wms_movements
+[0m12:44:14.343459 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.344415 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_erp_movements"} */
+select database_name, type from duckdb_databases()
+[0m12:44:14.344591 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:44:14.345348 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.346485 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.346920 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_erp_movements"} */
+
+                    select table_name, constraint_type from duckdb_constraints()
+                    where lower(database_name) = lower('reconciliation')
+                      and lower(schema_name) = lower('silver')
+                      and constraint_type in ('PRIMARY KEY', 'UNIQUE', 'FOREIGN KEY')
+                    
+[0m12:44:14.348183 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.361025 [debug] [Thread-2 (]: Writing runtime sql for node "model.reconciliation.stg_wms_movements"
+[0m12:44:14.362094 [debug] [Thread-1 (]: Writing runtime sql for node "model.reconciliation.stg_erp_movements"
+[0m12:44:14.362734 [debug] [Thread-2 (]: Using duckdb connection "model.reconciliation.stg_wms_movements"
+[0m12:44:14.362950 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.363122 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: BEGIN
+[0m12:44:14.363292 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: BEGIN
+[0m12:44:14.363459 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m12:44:14.363770 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m12:44:14.363913 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.364063 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.364233 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_erp_movements"} */
+
+  
+  create view "reconciliation"."silver"."stg_erp_movements__dbt_tmp" as (
+    -- ERP movements renamed into the shared silver schema; no business logic here
+select
+    erp_doc_number,
+    line_item_number,
+    item_code as sku,
+    warehouse_code,
+    qty_delta as movement_qty,
+    posting_date as movement_date,
+    doc_type as event_type,
+    'ERP' as source_system
+from "reconciliation"."bronze"."erp_feed"
+  );
+
+[0m12:44:14.364430 [debug] [Thread-2 (]: Using duckdb connection "model.reconciliation.stg_wms_movements"
+[0m12:44:14.364681 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_wms_movements"} */
+
+  
+  create view "reconciliation"."silver"."stg_wms_movements__dbt_tmp" as (
+    -- WMS movements renamed into the shared silver schema. units and qty_delta are
+-- both the same underlying movement_qty column from the source ledger, so this
+-- is a straight rename, no sign flipping or vocabulary mapping needed.
+select
+    row_id,
+    sku,
+    warehouse_code,
+    units as movement_qty,
+    event_date as movement_date,
+    event_type,
+    'WMS' as source_system
+from "reconciliation"."bronze"."wms_feed"
+  );
+
+[0m12:44:14.364887 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m12:44:14.367182 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.367345 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m12:44:14.367504 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_erp_movements"} */
+alter view "reconciliation"."silver"."stg_erp_movements__dbt_tmp" rename to "stg_erp_movements"
+[0m12:44:14.368407 [debug] [Thread-2 (]: Using duckdb connection "model.reconciliation.stg_wms_movements"
+[0m12:44:14.368785 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_wms_movements"} */
+alter view "reconciliation"."silver"."stg_wms_movements__dbt_tmp" rename to "stg_wms_movements"
+[0m12:44:14.369638 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.374321 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: COMMIT
+[0m12:44:14.374519 [debug] [Thread-1 (]: SQL status: OK in 0.006 seconds
+[0m12:44:14.375552 [debug] [Thread-2 (]: Using duckdb connection "model.reconciliation.stg_wms_movements"
+[0m12:44:14.378757 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: COMMIT
+[0m12:44:14.378957 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: COMMIT
+[0m12:44:14.379301 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.379601 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: COMMIT
+[0m12:44:14.384294 [debug] [Thread-2 (]: SQL status: OK in 0.005 seconds
+[0m12:44:14.440483 [debug] [Thread-1 (]: SQL status: OK in 0.061 seconds
+[0m12:44:14.443088 [debug] [Thread-1 (]: Using duckdb connection "model.reconciliation.stg_erp_movements"
+[0m12:44:14.443333 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_erp_movements"} */
+
+      drop view if exists "reconciliation"."silver"."stg_erp_movements__dbt_backup" cascade
+    
+[0m12:44:14.443991 [debug] [Thread-2 (]: Using duckdb connection "model.reconciliation.stg_wms_movements"
+[0m12:44:14.444151 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.stg_wms_movements"} */
+
+      drop view if exists "reconciliation"."silver"."stg_wms_movements__dbt_backup" cascade
+    
+[0m12:44:14.444425 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.445585 [debug] [Thread-1 (]: On model.reconciliation.stg_erp_movements: Close
+[0m12:44:14.445797 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.446638 [debug] [Thread-2 (]: On model.reconciliation.stg_wms_movements: Close
+[0m12:44:14.447841 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108b8aea0>]}
+[0m12:44:14.448018 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108bc6930>]}
+[0m12:44:14.448348 [info ] [Thread-1 (]: 1 of 3 OK created sql view model silver.stg_erp_movements ...................... [[32mOK[0m in 0.11s]
+[0m12:44:14.448847 [debug] [Thread-1 (]: Finished running node model.reconciliation.stg_erp_movements
+[0m12:44:14.448633 [info ] [Thread-2 (]: 2 of 3 OK created sql view model silver.stg_wms_movements ...................... [[32mOK[0m in 0.11s]
+[0m12:44:14.449177 [debug] [Thread-2 (]: Finished running node model.reconciliation.stg_wms_movements
+[0m12:44:14.449493 [debug] [Thread-4 (]: Began running node model.reconciliation.gold_reconciliation_daily
+[0m12:44:14.449700 [info ] [Thread-4 (]: 3 of 3 START sql table model gold.gold_reconciliation_daily .................... [RUN]
+[0m12:44:14.449936 [debug] [Thread-4 (]: Acquiring new duckdb connection 'model.reconciliation.gold_reconciliation_daily'
+[0m12:44:14.450084 [debug] [Thread-4 (]: Began compiling node model.reconciliation.gold_reconciliation_daily
+[0m12:44:14.451071 [debug] [Thread-4 (]: Writing injected SQL for node "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.451442 [debug] [Thread-4 (]: Began executing node model.reconciliation.gold_reconciliation_daily
+[0m12:44:14.451997 [debug] [Thread-4 (]: Using duckdb connection "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.452159 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.gold_reconciliation_daily"} */
+
+                    select table_name, constraint_type from duckdb_constraints()
+                    where lower(database_name) = lower('reconciliation')
+                      and lower(schema_name) = lower('gold')
+                      and constraint_type in ('PRIMARY KEY', 'UNIQUE', 'FOREIGN KEY')
+                    
+[0m12:44:14.452311 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m12:44:14.453007 [debug] [Thread-4 (]: SQL status: OK in 0.001 seconds
+[0m12:44:14.472552 [debug] [Thread-4 (]: Writing runtime sql for node "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.473039 [debug] [Thread-4 (]: Using duckdb connection "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.473199 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: BEGIN
+[0m12:44:14.473502 [debug] [Thread-4 (]: SQL status: OK in 0.000 seconds
+[0m12:44:14.473641 [debug] [Thread-4 (]: Using duckdb connection "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.473814 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.gold_reconciliation_daily"} */
+
+    
+
+    create  table
+      "reconciliation"."gold"."gold_reconciliation_daily__dbt_tmp"
+  
+    
+    as (
+      -- SKU x warehouse x day reconciliation: the single view that answers which
+-- number to trust, and by how much the two systems disagree.
+with erp_daily as (
+    select
+        sku,
+        warehouse_code,
+        date_trunc('day', movement_date) as day,
+        sum(movement_qty) as erp_qty
+    from "reconciliation"."silver"."stg_erp_movements"
+    group by 1, 2, 3
+),
+
+wms_daily as (
+    select
+        sku,
+        warehouse_code,
+        date_trunc('day', movement_date) as day,
+        sum(movement_qty) as wms_qty
+    from "reconciliation"."silver"."stg_wms_movements"
+    group by 1, 2, 3
+)
+
+select
+    coalesce(erp_daily.sku, wms_daily.sku) as sku,
+    coalesce(erp_daily.warehouse_code, wms_daily.warehouse_code) as warehouse_code,
+    coalesce(erp_daily.day, wms_daily.day) as day,
+    coalesce(erp_daily.erp_qty, 0) as erp_qty,
+    coalesce(wms_daily.wms_qty, 0) as wms_qty,
+    -- positive variance means WMS recorded more movement than ERP expected
+    coalesce(wms_daily.wms_qty, 0) - coalesce(erp_daily.erp_qty, 0) as variance,
+    coalesce(wms_daily.wms_qty, 0) - coalesce(erp_daily.erp_qty, 0) != 0 as has_discrepancy
+from erp_daily
+full outer join wms_daily
+    on erp_daily.sku = wms_daily.sku
+    and erp_daily.warehouse_code = wms_daily.warehouse_code
+    and erp_daily.day = wms_daily.day
+    );
+    
+  
+[0m12:44:14.770086 [debug] [Thread-4 (]: SQL status: OK in 0.296 seconds
+[0m12:44:14.771680 [debug] [Thread-4 (]: Using duckdb connection "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.771938 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.gold_reconciliation_daily"} */
+alter table "reconciliation"."gold"."gold_reconciliation_daily__dbt_tmp" rename to "gold_reconciliation_daily"
+[0m12:44:14.772421 [debug] [Thread-4 (]: SQL status: OK in 0.000 seconds
+[0m12:44:14.775560 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: COMMIT
+[0m12:44:14.775760 [debug] [Thread-4 (]: Using duckdb connection "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.775904 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: COMMIT
+[0m12:44:14.988496 [debug] [Thread-4 (]: SQL status: OK in 0.212 seconds
+[0m12:44:14.989276 [debug] [Thread-4 (]: Using duckdb connection "model.reconciliation.gold_reconciliation_daily"
+[0m12:44:14.989433 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: /* {"app": "dbt", "dbt_version": "1.12.7", "profile_name": "reconciliation", "target_name": "dev", "node_id": "model.reconciliation.gold_reconciliation_daily"} */
+
+      drop table if exists "reconciliation"."gold"."gold_reconciliation_daily__dbt_backup" cascade
+    
+[0m12:44:14.989726 [debug] [Thread-4 (]: SQL status: OK in 0.000 seconds
+[0m12:44:14.990293 [debug] [Thread-4 (]: On model.reconciliation.gold_reconciliation_daily: Close
+[0m12:44:14.990550 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '23ab53ad-483a-40d1-9782-6b8c20f9cf63', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087b46b0>]}
+[0m12:44:14.990827 [info ] [Thread-4 (]: 3 of 3 OK created sql table model gold.gold_reconciliation_daily ............... [[32mOK[0m in 0.54s]
+[0m12:44:14.991041 [debug] [Thread-4 (]: Finished running node model.reconciliation.gold_reconciliation_daily
+[0m12:44:14.991610 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:44:14.991778 [debug] [MainThread]: On master: BEGIN
+[0m12:44:14.991905 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m12:44:14.992145 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m12:44:14.992270 [debug] [MainThread]: On master: COMMIT
+[0m12:44:14.992386 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:44:14.992501 [debug] [MainThread]: On master: COMMIT
+[0m12:44:14.992663 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m12:44:14.992779 [debug] [MainThread]: On master: Close
+[0m12:44:14.992938 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m12:44:14.993054 [debug] [MainThread]: Connection 'model.reconciliation.stg_erp_movements' was properly closed.
+[0m12:44:14.993153 [debug] [MainThread]: Connection 'model.reconciliation.stg_wms_movements' was properly closed.
+[0m12:44:14.993244 [debug] [MainThread]: Connection 'model.reconciliation.gold_reconciliation_daily' was properly closed.
+[0m12:44:14.993385 [info ] [MainThread]: 
+[0m12:44:14.993512 [info ] [MainThread]: Finished running 1 table model, 2 view models in 0 hours 0 minutes and 0.75 seconds (0.75s).
+[0m12:44:14.993830 [debug] [MainThread]: Command end result
+[0m12:44:15.008779 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/ayaansheikh/Desktop/reconciliation/transform/target/manifest.json
+[0m12:44:15.009775 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/ayaansheikh/Desktop/reconciliation/transform/target/semantic_manifest.json
+[0m12:44:15.010553 [debug] [MainThread]: Wrote artifact OsiDocument to /Users/ayaansheikh/Desktop/reconciliation/transform/target/osi_document.json
+[0m12:44:15.013288 [debug] [MainThread]: Wrote artifact RunExecutionResult to /Users/ayaansheikh/Desktop/reconciliation/transform/target/run_results.json
+[0m12:44:15.013427 [info ] [MainThread]: 
+[0m12:44:15.013575 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m12:44:15.013700 [info ] [MainThread]: 
+[0m12:44:15.013831 [info ] [MainThread]: Done. PASS=3 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=3
+[0m12:44:15.014096 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 1.6649383, "process_in_blocks": "0", "process_kernel_time": 0.270468, "process_mem_max_rss": "407945216", "process_out_blocks": "0", "process_user_time": 3.227167}
+[0m12:44:15.014329 [debug] [MainThread]: Command `dbt run` succeeded at 12:44:15.014256 after 1.67 seconds
+[0m12:44:15.014545 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107d51df0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108754a40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108b8a870>]}
+[0m12:44:15.014727 [debug] [MainThread]: Flushing usage events
+[0m12:44:15.450705 [debug] [MainThread]: An error was encountered while trying to flush usage events

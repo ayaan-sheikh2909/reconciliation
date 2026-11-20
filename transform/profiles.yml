@@ -1,0 +1,7 @@
+reconciliation:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/warehouse/reconciliation.duckdb
+      threads: 4

@@ -1,4 +1,12 @@
 {
-    "duckdb.databases": [],
+    "duckdb.databases": [
+        {
+            "alias": "reconciliation",
+            "type": "file",
+            "path": "/Users/ayaansheikh/Desktop/reconciliation/data/warehouse/reconciliation.duckdb",
+            "attached": false,
+            "readOnly": false
+        }
+    ],
     "duckdb.defaultDatabase": "reconciliation"
 }

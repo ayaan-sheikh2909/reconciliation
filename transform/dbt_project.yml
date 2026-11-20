@@ -1,0 +1,21 @@
+name: reconciliation
+version: "1.0.0"
+config-version: 2
+
+profile: reconciliation
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  reconciliation:
+    staging:
+      +materialized: view
+      +schema: silver
+    marts:
+      +materialized: table
+      +schema: gold
