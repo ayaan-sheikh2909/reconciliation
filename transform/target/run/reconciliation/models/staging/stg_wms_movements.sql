@@ -9,7 +9,7 @@ select
     sku,
     warehouse_code,
     units as movement_qty,
-    event_date as movement_date,
+    cast(event_date as timestamp) as movement_date,
     event_type,
     'WMS' as source_system
 from "reconciliation"."bronze"."wms_feed"
